@@ -1,0 +1,151 @@
+1. Comment out #include "functions.h" from errormain.c (place "//" before it) 
+1) errormain.c:13:29: warning: implicit declaration of function 'fact' is invalid
+      in C99 [-Wimplicit-function-declaration]
+        unsigned long int result = fact(input);
+                                   ^
+errormain.c:40:2: warning: implicit declaration of function 'print_stuff' is
+      invalid in C99 [-Wimplicit-function-declaration]
+        print_stuff(5, 7.5, 8.9, 'a');
+        ^
+errormain.c:42:11: warning: implicit declaration of function 'multiply_by_5' is
+      invalid in C99 [-Wimplicit-function-declaration]
+        output = multiply_by_5(input);
+                 ^
+errormain.c:52:2: warning: implicit declaration of function 'do_some_math' is
+      invalid in C99 [-Wimplicit-function-declaration]
+        do_some_math(10, 3.5, 'f');
+        ^
+4 warnings generated.
+/tmp/errormain-e25478.o:(.text+0x12): undefined reference to `fact'
+/tmp/errormain-e25478.o:(.text+0x12): relocation truncated to fit: R_X86_64_PC32 against undefined symbol `fact'
+/tmp/errormain-e25478.o:(.text+0xd5): undefined reference to `print_stuff'
+/tmp/errormain-e25478.o:(.text+0xd5): relocation truncated to fit: R_X86_64_PC32 against undefined symbol `print_stuff'
+/tmp/errormain-e25478.o:(.text+0xe7): undefined reference to `multiply_by_5'
+/tmp/errormain-e25478.o:(.text+0xe7): relocation truncated to fit: R_X86_64_PC32 against undefined symbol `multiply_by_5'
+/tmp/errormain-e25478.o:(.text+0x112): undefined reference to `multiply_by_5'
+/tmp/errormain-e25478.o:(.text+0x112): relocation truncated to fit: R_X86_64_PC32 against undefined symbol `multiply_by_5'
+/tmp/errormain-e25478.o:(.text+0x13d): undefined reference to `multiply_by_5'
+/tmp/errormain-e25478.o:(.text+0x13d): relocation truncated to fit: R_X86_64_PC32 against undefined symbol `multiply_by_5'
+/tmp/errormain-e25478.o:(.text+0x191): undefined reference to `do_some_math'
+/tmp/errormain-e25478.o:(.text+0x191): relocation truncated to fit: R_X86_64_PC32 against undefined symbol `do_some_math'
+clang-5.0: error: linker command failed with exit code 1 (use -v to see invocation)
+
+
+2. Declare the same variable name twice 
+2) errormain.c:34:6: error: redefinition of 'num_total'
+        int num_total = 0;
+            ^
+errormain.c:33:6: note: previous definition is here
+        int num_total = 0;
+            ^
+1 error generated.
+
+
+3. Remove a variable declaration 
+3) errormain.c:54:2: error: use of undeclared identifier 'num_total'
+        num_total++;
+        ^
+errormain.c:56:2: error: use of undeclared identifier 'num_total'
+        num_total++;
+        ^
+errormain.c:58:2: error: use of undeclared identifier 'num_total'
+        num_total++;
+        ^
+errormain.c:60:2: error: use of undeclared identifier 'num_total'
+        num_total++;
+        ^
+errormain.c:62:2: error: use of undeclared identifier 'num_total'
+        num_total++;
+        ^
+errormain.c:63:51: error: use of undeclared identifier 'num_total'
+        printf("Passed %d out of %d tests\n",num_correct,num_total);
+                                                         ^
+6 errors generated.
+
+
+4. Misspell a variable name or function name 
+4) errormain.c:55:2: error: use of undeclared identifier 'num_total'; did you mean
+      'numb_total'?
+        num_total++;
+        ^~~~~~~~~
+        numb_total
+errormain.c:33:6: note: 'numb_total' declared here
+        int numb_total = 0;
+            ^
+errormain.c:57:2: error: use of undeclared identifier 'num_total'; did you mean
+      'numb_total'?
+        num_total++;
+        ^~~~~~~~~
+        numb_total
+errormain.c:33:6: note: 'numb_total' declared here
+        int numb_total = 0;
+            ^
+errormain.c:59:2: error: use of undeclared identifier 'num_total'; did you mean
+      'numb_total'?
+        num_total++;
+        ^~~~~~~~~
+        numb_total
+errormain.c:33:6: note: 'numb_total' declared here
+        int numb_total = 0;
+            ^
+errormain.c:61:2: error: use of undeclared identifier 'num_total'; did you mean
+      'numb_total'?
+        num_total++;
+        ^~~~~~~~~
+        numb_total
+errormain.c:33:6: note: 'numb_total' declared here
+        int numb_total = 0;
+            ^
+errormain.c:63:2: error: use of undeclared identifier 'num_total'; did you mean
+      'numb_total'?
+        num_total++;
+        ^~~~~~~~~
+        numb_total
+errormain.c:33:6: note: 'numb_total' declared here
+        int numb_total = 0;
+            ^
+errormain.c:64:51: error: use of undeclared identifier 'num_total'; did you mean
+      'numb_total'?
+        printf("Passed %d out of %d tests\n",num_correct,num_total);
+                                                         ^~~~~~~~~
+                                                         numb_total
+errormain.c:33:6: note: 'numb_total' declared here
+        int numb_total = 0;
+            ^
+6 errors generated.
+
+
+5. Remove a closed curly brace 
+5) errormain.c:67:1: error: expected '}'
+^
+errormain.c:31:1: note: to match this '{'
+{
+^
+1 error generated.
+
+
+6. Remove the line #include <stdlib.h> from errormain.c 
+6) /tmp/errormain-d5f157.o:(.text+0x12): undefined reference to `fact'
+/tmp/errormain-d5f157.o:(.text+0x12): relocation truncated to fit: R_X86_64_PC32 against undefined symbol `fact'
+/tmp/errormain-d5f157.o:(.text+0xd5): undefined reference to `print_stuff'
+/tmp/errormain-d5f157.o:(.text+0xd5): relocation truncated to fit: R_X86_64_PC32 against undefined symbol `print_stuff'
+/tmp/errormain-d5f157.o:(.text+0xe4): undefined reference to `multiply_by_5'
+/tmp/errormain-d5f157.o:(.text+0xe4): relocation truncated to fit: R_X86_64_PC32 against undefined symbol `multiply_by_5'
+/tmp/errormain-d5f157.o:(.text+0x10f): undefined reference to `multiply_by_5'
+/tmp/errormain-d5f157.o:(.text+0x10f): relocation truncated to fit: R_X86_64_PC32 against undefined symbol `multiply_by_5'
+/tmp/errormain-d5f157.o:(.text+0x13a): undefined reference to `multiply_by_5'
+/tmp/errormain-d5f157.o:(.text+0x13a): relocation truncated to fit: R_X86_64_PC32 against undefined symbol `multiply_by_5'
+/tmp/errormain-d5f157.o:(.text+0x18e): undefined reference to `do_some_math'
+/tmp/errormain-d5f157.o:(.text+0x18e): relocation truncated to fit: R_X86_64_PC32 against undefined symbol `do_some_math'
+clang-5.0: error: linker command failed with exit code 1 (use -v to see invocation)
+
+
+7. Remove a semi-colon from the end of one of the lines 
+7) errormain.c:13:40: error: expected ';' at end of declaration
+        unsigned long int result = fact(input)
+                                              ^
+                                              ;
+errormain.c:16:2: error: expected expression
+        else
+        ^
+2 errors generated.

@@ -1,0 +1,28 @@
+#lang typed/racket
+
+;; CMSC15100 Winter 2018
+;; Project 1 -- util.rkt
+;; <YOUR NAME HERE>
+;;
+;; Utility definitions
+
+;; include CS151-specific definitions
+(require "../include/cs151-core.rkt")
+
+;; optional values
+;;
+(define-type (Option A) (U 'None (Some A)))
+(define-struct (Some A) ([value : A]))
+
+;; pairs
+;;
+(define-struct (Pair A B)
+  ([fst : A]
+   [snd : B]))
+
+;;;;; util.rkt API
+
+(provide
+  Option
+  (struct-out Some)
+  (struct-out Pair))

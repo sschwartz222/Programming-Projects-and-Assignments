@@ -1,0 +1,55 @@
+#lang typed/racket
+
+;; CMSC15100 Winter 2018
+;; Project 2 -- ai.rkt
+;; <YOUR NAME HERE>
+
+;; include CS151-specific definitions
+(require "../include/cs151-core.rkt")
+
+;; include testing framework
+(require typed/test-engine/racket-tests)
+
+;; include board.rkt
+(require "board.rkt")
+
+;; include moves.rkt
+(require "moves.rkt")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; DATA DEFINITIONS
+
+;; A Strategy is a function for determining a move; it returns
+;; 'Skip when there is no move available for the current player
+;;
+(define-type Strategy (Game -> (U Move 'Skip)))
+
+;; A evaluator evaluates the state of a game for the next player
+;; and returns a signed integer value, where zero is neutral, positive
+;; values are favorable for the next player, and negative values
+;; mean a favorable position for the other player
+;;
+(define-type Evaluator (Game -> Integer))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; STRATEGIES
+
+(: first-move : Strategy)
+;; pick the first valid move on the board in order of increasing index
+;;
+(define (first-move game)
+  (local
+    {(define brd : Board (Game-board game))
+     (define player : Player (Game-next game))
+     (: find : Integer (Listof Cell) -> (U Move 'Skip))
+     ;; find the first valid move or else return 'Skip
+     (define (find ix cells)
+       (match cells
+        ['() 'Skip]
+        [(cons '_ cellr)
+         (local {(define mv (Move player (index->coord brd ix)))}
+          (if (outflanks? brd mv)
+              mv
+              (find (+ ix 1) cellr)))]
+        [(cons _ cellr) (find (+ ix 1) cellr)]))}
+    (find 0 (Board-cells brd))))

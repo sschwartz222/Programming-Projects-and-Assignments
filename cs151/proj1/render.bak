@@ -1,0 +1,273 @@
+#lang typed/racket
+
+;; CMSC15100 Winter 2018
+;; Project 1 -- render.rkt
+;; Sam Schwartz
+;;
+;; Visualization code
+
+;; include CS151-specific definitions
+(require "../include/cs151-core.rkt")
+(require "../include/cs151-image.rkt")
+
+;; include testing framework
+(require typed/test-engine/racket-tests)
+
+;; include utility definitions
+(require "util.rkt")
+
+;; include board.rkt
+(require "board.rkt")
+
+;; include moves.rkt
+(require "moves.rkt")
+
+;; RACKET WASNT LETTING ME TEST THINGS THAT HAD FUNCTIONS
+;; FROM MOVES.RKT, SO I MOVED SOME OF THEM HERE FOR TESTING
+;; PURPOSES
+
+;; A game state is a Board and a next player
+(define-struct Game
+  ([board : Board]
+   [next : Player]))
+
+(define-struct Point
+  ([x : Integer]
+   [y : Integer]))
+
+(: initial-board : Natural -> Board)
+;; create an initial board of the given size, which should be even and
+;; between 6 and 16, and four pieces (two of each color) in the
+;; center.  Signal an error if the width is invalid
+(define (initial-board nat)
+  (if (and (even? nat) (<= 6 nat 16))
+      (board-update
+       (board-update
+        (board-update
+         (board-update (make-board nat)
+                       (Coord (truncate (/ nat 2))
+                              (truncate (- (/ nat 2) 1))) 'black)
+         (Coord (truncate (/ nat 2)) (truncate (/ nat 2))) 'white)
+        (Coord (truncate (- (/ nat 2) 1)) (truncate (- (/ nat 2) 1))) 'white)
+       (Coord (truncate (- (/ nat 2) 1)) (truncate (/ nat 2))) 'black)
+      (error "expects an even natural number between 6 and 16")))
+
+(: make-game : Natural -> Game)
+;; make a game in its initial state with the specified board width
+(define (make-game nat)
+  (Game (initial-board nat) 'black))
+
+;; a (Layout ...) describes the geometry of the game window
+;;
+(define-struct Layout
+  ([width : Integer]          ;; the width of the window
+   [height : Integer]         ;; the height of the window
+   [pad-wid : Integer]        ;; the width of the padding/margins
+   [cell-wid : Integer]       ;; the size of a cell in pixels
+   [text-sz : Integer]        ;; the font size for cell labels and messages
+   [board-left : Integer]     ;; position of left-side of board in the layout
+   [board-right : Integer]    ;; position of right-side of board in the layout
+   [board-top : Integer]      ;; position of top of board in the layout
+   [board-bottom : Integer])) ;; position of bottom of board in the layout
+
+(: make-layout : Integer Integer Integer -> Layout)
+;; (make-layout pad-wid board-sz cell-wid) makes a Layout description for a
+;; game window from the specified padding width, board size, and cell width.
+;; The text size whould be 80% of the cell width.
+;;
+(define (make-layout pad-wid board-sz cell-wid)
+  (Layout (+ (* 2 pad-wid) (* (+ 2 board-sz) cell-wid))
+          (+ (* 3 pad-wid) (* (+ 3 board-sz) cell-wid))
+          pad-wid
+          cell-wid
+          (exact-round (* .8 cell-wid))
+          (+ cell-wid pad-wid)
+          (+ pad-wid (* (+ 1 board-sz) cell-wid))
+          (+ cell-wid pad-wid)
+          (+ pad-wid (* (+ 1 board-sz) cell-wid))))
+(check-expect (make-layout 10 6 40)
+              (Layout 340 390 10 40 32 50 290 50 290))
+(check-expect (make-layout 5 8 50)
+              (Layout 510 565 5 50 40 55 455 55 455))
+
+(: loc->coord : Layout Integer Integer -> (Option Coord))
+;; given a layout and the x and y position on the game window, return
+;; the coordinate of the board cell containing the position, or 'None
+;; if the position is not over the board.
+;;
+(define (loc->coord lay x y)
+  (if (and (<= (Layout-board-left lay) x (Layout-board-right lay))
+           (<= (Layout-board-top lay) y (Layout-board-bottom lay)))
+      (Some (Coord (exact-round (- (/ (- x (Layout-pad-wid lay))
+                                      (Layout-cell-wid lay)) 2))
+                   (exact-round (- (/ (- y (Layout-pad-wid lay))
+                                      (Layout-cell-wid lay)) 2))))
+      'None))
+(check-expect (loc->coord (make-layout 10 6 40) 289 289) (Some (Coord 5 5)))
+(check-expect (loc->coord (make-layout 10 6 40) 291 291) 'None)
+
+(: board-image : Board Layout -> Image)
+;; given a board produce an image of the board
+(define (board-image b lay)
+  (local
+    {(: grid : Image Integer -> Image)
+     ;; makes a series of vertical rectangles, moving downwards
+     (define (grid i c)
+       (if (>= c (Board-size b))
+           i
+           (grid (place-image (rectangle (Layout-cell-wid lay)
+                                         (* (Layout-cell-wid lay)
+                                            (Board-size b))
+                                         'outline 'white)
+                              (+ (/ (Layout-cell-wid lay) 2)
+                                 (Layout-cell-wid lay)
+                                 (* c (Layout-cell-wid lay)))
+                              (/ (* (+ (Board-size b) 2) (Layout-cell-wid lay)) 2) i)
+                 (+ c 1))))
+     (: grid2 : Image Integer -> Image)
+     ;; makes a series of horizontal rectangles, moving downwards
+     (define (grid2 a d)
+       (if (>= d (Board-size b))
+           a
+           (grid2 (place-image (rectangle (* (Layout-cell-wid lay)
+                                             (Board-size b))
+                                          (Layout-cell-wid lay)
+                                          'outline 'white)
+                               (/ (* (+ (Board-size b) 2) (Layout-cell-wid lay)) 2)
+                               (+ (/ (Layout-cell-wid lay) 2)
+                                  (Layout-cell-wid lay)
+                                  (* d (Layout-cell-wid lay))) a)
+                  (+ d 1))))
+     (: grid-x-num : Image Integer -> Image)
+     ;; makes the column numbers
+     (define (grid-x-num text1 count1)
+       (if (>= count1 (Board-size b))
+           text1
+           (grid-x-num (place-image (text (number->string count1)
+                                          (Layout-text-sz lay)
+                                          'white)
+                                    (+ (/ (Layout-cell-wid lay) 2)
+                                       (Layout-cell-wid lay)
+                                       (* count1 (Layout-cell-wid lay)))
+                                    (/ (Layout-cell-wid lay) 2) text1)
+                       (+ count1 1))))
+     (: grid-y-num : Image Integer -> Image)
+     ;; makes the row numbers
+     (define (grid-y-num text2 count2)
+       (if (>= count2 (Board-size b))
+           text2
+           (grid-y-num (place-image (text (number->string count2)
+                                          (Layout-text-sz lay)
+                                          'white)
+                                    (/ (Layout-cell-wid lay) 2)
+                                    (+ (/ (Layout-cell-wid lay) 2)
+                                       (Layout-cell-wid lay)
+                                       (* count2 (Layout-cell-wid lay))) text2)
+                       (+ count2 1))))
+     (: coord->loc : Coord Layout -> Point)
+     ;; determines the point on the image that the coordinate corresponds to
+     (define (coord->loc cor lay)
+       (Point (+ (* (Coord-col cor) (Layout-cell-wid lay))
+                 (exact-round (* 1.5 (Layout-cell-wid lay))))
+              (+ (* (Coord-row cor) (Layout-cell-wid lay))
+                 (exact-round (* 1.5 (Layout-cell-wid lay))))))
+     (: place-circle : Board (Listof Cell) Layout Integer Image Player -> Image)
+     ;; puts a circle at the right place on the board
+     (define (place-circle b cel lay int img play)
+       (match play
+         ['white
+          (match cel
+            ['() img]
+            [(cons f l)
+             (if (symbol=? f 'white)
+                 (place-circle b l lay (+ 1 int)
+                               (place-image
+                                (circle (exact-round (/ (Layout-cell-wid lay) 2.5))
+                                        'solid 'white)
+                                (Point-x (coord->loc (index->coord b int) lay))
+                                (Point-y (coord->loc (index->coord b int) lay))
+                                img)
+                               play)
+                 (place-circle b l lay (+ 1 int) img play))])]
+         ['black
+          (match cel
+            ['() img]
+            [(cons f l)
+             (if (symbol=? f 'black)
+                 (place-circle b l lay (+ 1 int)
+                               (place-image
+                                (circle (exact-round (/ (Layout-cell-wid lay) 2.5))
+                                        'solid 'black)
+                                (Point-x (coord->loc (index->coord b int) lay))
+                                (Point-y (coord->loc (index->coord b int) lay))
+                                img)
+                               play)
+                 (place-circle b l lay (+ 1 int) img play))])]))}
+    (place-circle b (Board-cells b) lay 0
+                  (place-circle b (Board-cells b) lay 0
+                                (grid-y-num
+                                 (grid-x-num
+                                  (grid2
+                                   (grid
+                                    (square
+                                     (* (Layout-cell-wid lay) (+ 2 (Board-size b)))
+                                     'solid 'darkgreen) 0) 0) 0) 0) 'black) 'white)))
+
+(: game-image : Game Layout -> Image)
+;; given a game and the game-window layout, produce an image of the game
+;; including the board, an indication of which player is to move next,
+;; and each player's current score
+(define (game-image g lay)
+  (place-image
+   (board-image (Game-board g) lay) (/ (Layout-width lay) 2)
+   (+ (Layout-cell-wid lay) (Layout-pad-wid lay)
+      (/ (- (Layout-board-bottom lay) (Layout-board-top lay)) 2))
+   (place-image
+    (text
+     (string-append
+      (player->string (Game-next g))
+      "'s turn! " "Score: White-"
+      (number->string (count-pieces (Game-board g) 'white))
+      " Black-"
+      (number->string (count-pieces (Game-board g) 'black)))
+     (exact-round (* 0.6 (Layout-text-sz lay)))
+     'black)
+    (/ (Layout-width lay) 2)
+    (- (Layout-height lay) (+ (Layout-pad-wid lay) (/ (Layout-cell-wid lay) 2)))
+    (empty-scene (Layout-width lay) (Layout-height lay) 'white))))
+
+;;;;; render.rkt API
+
+;; type exports
+(provide
+  Layout)
+
+;; export operations on layouts
+(provide
+  make-layout
+  loc->coord)
+
+;; export drawing operations
+(provide
+  board-image
+  game-image)
+
+(test)
+;; eyeball tests
+;; board image
+(board-image (initial-board 6) (make-layout 10 6 40))
+"6x6 board"
+(board-image (initial-board 10) (make-layout 20 10 50))
+"bigger 10x10 board"
+(game-image (make-game 6) (make-layout 10 6 40))
+"same 6x6 board as above but with the other stuff in the window"
+(game-image (make-game 10) (make-layout 20 10 50))
+"same 10x10 board as above but with the other stuff in the window"
+    
+         
+                                                 
+
+
+         
+
+          

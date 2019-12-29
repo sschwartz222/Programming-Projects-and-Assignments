@@ -1,0 +1,29 @@
+Pre-lab 4 questions	
+Name: Sam Schwartz
+Cnet ID: sschwartz222
+Lab start time: 3:30
+
+Note: There may be more than one answer. Make sure you leave 
+all that apply 
+1. All strings in C end with: 
+(delete the incorrect ones) 
+      b) \0 
+
+2. When you pass a string, you pass (copy to a local variable): 
+(delete the incorrect ones) 
+      c) The address of the beginning of the string 
+ 
+3. A struct 
+(Remove any answers that are not) 
+      a) is a way of organizing data into units 
+      b) may be nested in another struct 
+      d) can be returned from a function, allowing multiple data items to be returned 
+
+4. Malloc is appropriate 
+(Remove any answers that are not) 
+      b) to allocate an array whose size is known at runtime but not compile time 
+      c) as the default operation for a newly-declared pointer 
+	 that is not ready to point anywhere useful 
+
+5. Write one line of code that allocates an array of 20 integers.
+	array = malloc(sizeof(int) * 20);

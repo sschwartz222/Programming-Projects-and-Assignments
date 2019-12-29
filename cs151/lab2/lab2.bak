@@ -1,0 +1,17 @@
+#lang typed/racket
+
+;; CMSC15100 Winter 2018
+;; Lab 2
+;; <YOUR NAME HERE>
+
+;; include CS151-specific definitions
+(require "../include/cs151-core.rkt")
+
+;; include testing framework
+(require typed/test-engine/racket-tests)
+
+;; YOUR CODE HERE
+
+;; run tests
+;;
+(test)

@@ -1,0 +1,369 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>keyboard</title>
+	<script src="keyboard.js"></script>
+	<style>
+	 /*nice button styling from https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_button_css*/
+		.button {
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 15px 25px;
+			text-align: center;
+			font-size: 16px;
+			cursor: pointer;
+		}
+		
+		.button:hover {
+			background-color: green;
+		}
+		</style>
+</head>
+<body>
+	<h2> Elm Synth! </h2>
+	<div id="elm"></div>
+	<button id="start" class="button">Click me to unmute!</button>
+  <script>
+  var app = Elm.Keyboard.init({
+    node: document.getElementById('elm')
+				});
+				
+				
+	var button = document.getElementById("start");
+	button.onclick = function(){	
+			
+			var dict = {Octave: 4, Wavetype: "square"};
+
+			var button = document.getElementById("start");
+			var AudioContext = window.AudioContext || window.webkitAudioContext;
+			var audioCtx = new AudioContext();
+			var gainNode = audioCtx.createGain();
+				gainNode.connect(audioCtx.destination);
+				gainNode.gain.value = 3;
+			var oscillatorC = audioCtx.createOscillator();
+				oscillatorC.type = dict.Wavetype;
+				oscillatorC.frequency.setValueAtTime((32.703 * (Math.pow(2, dict.Octave))), audioCtx.currentTime);
+				oscillatorC.start();
+			var oscillatorCD = audioCtx.createOscillator();
+				oscillatorCD.type = dict.Wavetype;
+				oscillatorCD.frequency.setValueAtTime((34.648 * (Math.pow(2, dict.Octave))), audioCtx.currentTime);
+				oscillatorCD.start();
+			var oscillatorD = audioCtx.createOscillator();
+				oscillatorD.type = dict.Wavetype;
+				oscillatorD.frequency.setValueAtTime((36.708 * (Math.pow(2, dict.Octave))), audioCtx.currentTime);
+				oscillatorD.start();
+			var oscillatorDE = audioCtx.createOscillator();
+				oscillatorDE.type = dict.Wavetype;
+				oscillatorDE.frequency.setValueAtTime((38.891 * (Math.pow(2, dict.Octave))), audioCtx.currentTime);
+				oscillatorDE.start();
+			var oscillatorE = audioCtx.createOscillator();
+				oscillatorE.type = dict.Wavetype;
+				oscillatorE.frequency.setValueAtTime((41.203 * (Math.pow(2, dict.Octave))), audioCtx.currentTime);
+				oscillatorE.start();
+			var oscillatorF = audioCtx.createOscillator();
+				oscillatorF.type = dict.Wavetype;
+				oscillatorF.frequency.setValueAtTime((43.654 * (Math.pow(2, dict.Octave))), audioCtx.currentTime);
+				oscillatorF.start();
+			var oscillatorFG = audioCtx.createOscillator();
+				oscillatorFG.type = dict.Wavetype;
+				oscillatorFG.frequency.setValueAtTime((46.249 * (Math.pow(2, dict.Octave))), audioCtx.currentTime);
+				oscillatorFG.start();
+			var oscillatorG = audioCtx.createOscillator();
+				oscillatorG.type = dict.Wavetype;
+				oscillatorG.frequency.setValueAtTime((48.999 * (Math.pow(2, dict.Octave))), audioCtx.currentTime);
+				oscillatorG.start();
+			var oscillatorGA = audioCtx.createOscillator();
+				oscillatorGA.type = dict.Wavetype;
+				oscillatorGA.frequency.setValueAtTime((51.913 * (Math.pow(2, dict.Octave))), audioCtx.currentTime);
+				oscillatorGA.start();
+			var oscillatorA = audioCtx.createOscillator();
+				oscillatorA.type = dict.Wavetype;
+				oscillatorA.frequency.setValueAtTime((55.000 * (Math.pow(2, dict.Octave))), audioCtx.currentTime);
+				oscillatorA.start();
+			var oscillatorAB = audioCtx.createOscillator();
+				oscillatorAB.type = dict.Wavetype;
+				oscillatorAB.frequency.setValueAtTime((58.270 * (Math.pow(2, dict.Octave))), audioCtx.currentTime);
+				oscillatorAB.start();
+			var oscillatorB = audioCtx.createOscillator();
+				oscillatorB.type = dict.Wavetype;
+				oscillatorB.frequency.setValueAtTime((61.735 * (Math.pow(2, dict.Octave))), audioCtx.currentTime);
+				oscillatorB.start();
+			var oscillatorC_8va = audioCtx.createOscillator();
+				oscillatorC_8va.type = dict.Wavetype;
+				oscillatorC_8va.frequency.setValueAtTime((32.703 * (Math.pow(2, (dict.Octave + 1)))), audioCtx.currentTime);
+				oscillatorC_8va.start();
+			var oscillatorCD_8va = audioCtx.createOscillator();
+				oscillatorCD_8va.type = dict.Wavetype;
+				oscillatorCD_8va.frequency.setValueAtTime((34.648 * (Math.pow(2, (dict.Octave + 1)))), audioCtx.currentTime);
+				oscillatorCD_8va.start();
+			var oscillatorD_8va = audioCtx.createOscillator();
+				oscillatorD_8va.type = dict.Wavetype;
+				oscillatorD_8va.frequency.setValueAtTime((36.708 * (Math.pow(2, (dict.Octave + 1)))), audioCtx.currentTime);
+				oscillatorD_8va.start();
+			var oscillatorDE_8va = audioCtx.createOscillator();
+				oscillatorDE_8va.type = dict.Wavetype;
+				oscillatorDE_8va.frequency.setValueAtTime((38.891 * (Math.pow(2, (dict.Octave + 1)))), audioCtx.currentTime);
+				oscillatorDE_8va.start();
+			var oscillatorE_8va = audioCtx.createOscillator();
+				oscillatorE_8va.type = dict.Wavetype;
+				oscillatorE_8va.frequency.setValueAtTime((41.203 * (Math.pow(2, (dict.Octave + 1)))), audioCtx.currentTime);
+				oscillatorE_8va.start();
+			var oscillatorF_8va = audioCtx.createOscillator();
+				oscillatorF_8va.type = dict.Wavetype;
+				oscillatorF_8va.frequency.setValueAtTime((43.654 * (Math.pow(2, (dict.Octave + 1)))), audioCtx.currentTime);
+				oscillatorF_8va.start();
+			var oscillatorFG_8va = audioCtx.createOscillator();
+				oscillatorFG_8va.type = dict.Wavetype;
+				oscillatorFG_8va.frequency.setValueAtTime((46.249 * (Math.pow(2, (dict.Octave + 1)))), audioCtx.currentTime);
+				oscillatorFG_8va.start();
+			var oscillatorG_8va = audioCtx.createOscillator();
+				oscillatorG_8va.type = dict.Wavetype;
+				oscillatorG_8va.frequency.setValueAtTime((48.999 * (Math.pow(2, (dict.Octave + 1)))), audioCtx.currentTime);
+				oscillatorG_8va.start();
+			var oscillatorGA_8va = audioCtx.createOscillator();
+				oscillatorGA_8va.type = dict.Wavetype;
+				oscillatorGA_8va.frequency.setValueAtTime((51.913 * (Math.pow(2, (dict.Octave + 1)))), audioCtx.currentTime);
+				oscillatorGA_8va.start();
+			var oscillatorA_8va = audioCtx.createOscillator();
+				oscillatorA_8va.type = dict.Wavetype;
+				oscillatorA_8va.frequency.setValueAtTime((55.000 * (Math.pow(2, (dict.Octave + 1)))), audioCtx.currentTime);
+				oscillatorA_8va.start();
+			var oscillatorAB_8va = audioCtx.createOscillator();
+				oscillatorAB_8va.type = dict.Wavetype;
+				oscillatorAB_8va.frequency.setValueAtTime((58.270 * (Math.pow(2, (dict.Octave + 1)))), audioCtx.currentTime);
+				oscillatorAB_8va.start();
+			var oscillatorB_8va = audioCtx.createOscillator();
+				oscillatorB_8va.type = dict.Wavetype;
+				oscillatorB_8va.frequency.setValueAtTime((61.735 * (Math.pow(2, (dict.Octave + 1)))), audioCtx.currentTime);
+				oscillatorB_8va.start();
+			var oscillatorC_15va = audioCtx.createOscillator();
+				oscillatorC_15va.type = dict.Wavetype;
+				oscillatorC_15va.frequency.setValueAtTime((32.703 * (Math.pow(2, (dict.Octave + 2)))), audioCtx.currentTime);
+				oscillatorC_15va.start();
+
+	app.ports.octavechange.subscribe(function(oct) {
+		oscillatorC.frequency.setValueAtTime((32.703 * (Math.pow(2, oct))), audioCtx.currentTime);
+		oscillatorCD.frequency.setValueAtTime((34.648 * (Math.pow(2, oct))), audioCtx.currentTime);
+		oscillatorD.frequency.setValueAtTime((36.708 * (Math.pow(2, oct))), audioCtx.currentTime);
+		oscillatorDE.frequency.setValueAtTime((38.891 * (Math.pow(2, oct))), audioCtx.currentTime);
+		oscillatorE.frequency.setValueAtTime((41.203 * (Math.pow(2, oct))), audioCtx.currentTime);
+		oscillatorF.frequency.setValueAtTime((43.654 * (Math.pow(2, oct))), audioCtx.currentTime);
+		oscillatorFG.frequency.setValueAtTime((46.249 * (Math.pow(2, oct))), audioCtx.currentTime);
+		oscillatorG.frequency.setValueAtTime((48.999 * (Math.pow(2, oct))), audioCtx.currentTime);
+		oscillatorGA.frequency.setValueAtTime((51.913 * (Math.pow(2, oct))), audioCtx.currentTime);
+		oscillatorA.frequency.setValueAtTime((55.000 * (Math.pow(2, oct))), audioCtx.currentTime);
+		oscillatorAB.frequency.setValueAtTime((58.270 * (Math.pow(2, oct))), audioCtx.currentTime);
+		oscillatorB.frequency.setValueAtTime((61.735 * (Math.pow(2, oct))), audioCtx.currentTime);
+		oscillatorC_8va.frequency.setValueAtTime((32.703 * (Math.pow(2, (oct + 1)))), audioCtx.currentTime);
+		oscillatorCD_8va.frequency.setValueAtTime((34.648 * (Math.pow(2, (oct + 1)))), audioCtx.currentTime);
+		oscillatorD_8va.frequency.setValueAtTime((36.708 * (Math.pow(2, (oct + 1)))), audioCtx.currentTime);
+		oscillatorDE_8va.frequency.setValueAtTime((38.891 * (Math.pow(2, (oct + 1)))), audioCtx.currentTime);
+		oscillatorE_8va.frequency.setValueAtTime((41.203 * (Math.pow(2, (oct + 1)))), audioCtx.currentTime);
+		oscillatorF_8va.frequency.setValueAtTime((43.654 * (Math.pow(2, (oct + 1)))), audioCtx.currentTime);
+		oscillatorFG_8va.frequency.setValueAtTime((46.249 * (Math.pow(2, (oct + 1)))), audioCtx.currentTime);
+		oscillatorG_8va.frequency.setValueAtTime((48.999 * (Math.pow(2, (oct + 1)))), audioCtx.currentTime);
+		oscillatorGA_8va.frequency.setValueAtTime((51.913 * (Math.pow(2, (oct + 1)))), audioCtx.currentTime);
+		oscillatorA_8va.frequency.setValueAtTime((55.000 * (Math.pow(2, (oct + 1)))), audioCtx.currentTime);
+		oscillatorAB_8va.frequency.setValueAtTime((58.270 * (Math.pow(2, (oct + 1)))), audioCtx.currentTime);
+		oscillatorB_8va.frequency.setValueAtTime((61.735 * (Math.pow(2, (oct + 1)))), audioCtx.currentTime);
+		oscillatorC_15va.frequency.setValueAtTime((32.703 * (Math.pow(2, (oct + 2)))), audioCtx.currentTime);
+		});
+
+	app.ports.sendwave.subscribe(function(wav) {
+		oscillatorC.type = wav;
+		oscillatorCD.type = wav;
+		oscillatorD.type = wav;
+		oscillatorDE.type = wav;
+		oscillatorE.type = wav;
+		oscillatorF.type = wav;
+		oscillatorFG.type = wav;
+		oscillatorG.type = wav;
+		oscillatorGA.type = wav;
+		oscillatorA.type = wav;
+		oscillatorAB.type = wav;
+		oscillatorB.type = wav;
+		oscillatorC_8va.type = wav;
+		oscillatorCD_8va.type = wav;
+		oscillatorD_8va.type = wav;
+		oscillatorDE_8va.type = wav;
+		oscillatorE_8va.type = wav;
+		oscillatorF_8va.type = wav;
+		oscillatorFG_8va.type = wav;
+		oscillatorG_8va.type = wav;
+		oscillatorGA_8va.type = wav;
+		oscillatorA_8va.type = wav;
+		oscillatorAB_8va.type = wav;
+		oscillatorB_8va.type = wav;
+		oscillatorC_15va.type = wav;
+	})
+
+	app.ports.sendnote.subscribe(function(note) {
+				switch (note) {
+					case 1: 
+						oscillatorC.connect(gainNode);
+						break;
+					case 2:
+						oscillatorCD.connect(gainNode);
+						break;
+					case 3:
+						oscillatorD.connect(gainNode);
+						break;
+					case 4:
+						oscillatorDE.connect(gainNode);
+						break;
+					case 5:
+						oscillatorE.connect(gainNode);
+						break;
+					case 6:
+						oscillatorF.connect(gainNode);
+						break;
+					case 7:
+						oscillatorFG.connect(gainNode);
+						break;
+					case 8:
+						oscillatorG.connect(gainNode);
+						break;
+					case 9:
+						oscillatorGA.connect(gainNode);
+						break;
+					case 10:
+						oscillatorA.connect(gainNode);
+						break;
+					case 11:
+						oscillatorAB.connect(gainNode);
+						break;
+					case 12:
+						oscillatorB.connect(gainNode);
+						break;
+					case 13:
+						oscillatorC_8va.connect(gainNode);
+						break;
+					case 14:
+						oscillatorCD_8va.connect(gainNode);
+						break;
+					case 15:
+						oscillatorD_8va.connect(gainNode);
+						break;
+					case 16:
+						oscillatorDE_8va.connect(gainNode);
+						break;
+					case 17:
+						oscillatorE_8va.connect(gainNode);
+						break;
+					case 18:
+						oscillatorF_8va.connect(gainNode);
+						break;
+					case 19:
+						oscillatorFG_8va.connect(gainNode);
+						break;
+					case 20:
+						oscillatorG_8va.connect(gainNode);
+						break;
+					case 21:
+						oscillatorGA_8va.connect(gainNode);
+						break;
+					case 22:
+						oscillatorA_8va.connect(gainNode);
+						break;
+					case 23:
+						oscillatorAB_8va.connect(gainNode);
+						break;
+					case 24:
+						oscillatorB_8va.connect(gainNode);
+						break;
+					case 25:
+						oscillatorC_15va.connect(gainNode);
+						break;
+					default:
+						;
+				}
+			});
+
+		app.ports.stopnote.subscribe(function(note) {
+			switch (note) {
+					case 1: 
+						oscillatorC.disconnect(gainNode);
+						break;
+					case 2:
+						oscillatorCD.disconnect(gainNode);
+						break;
+					case 3:
+						oscillatorD.disconnect(gainNode);
+						break;
+					case 4:
+						oscillatorDE.disconnect(gainNode);
+						break;
+					case 5:
+						oscillatorE.disconnect(gainNode);
+						break;
+					case 6:
+						oscillatorF.disconnect(gainNode);
+						break;
+					case 7:
+						oscillatorFG.disconnect(gainNode);
+						break;
+					case 8:
+						oscillatorG.disconnect(gainNode);
+						break;
+					case 9:
+						oscillatorGA.disconnect(gainNode);
+						break;
+					case 10:
+						oscillatorA.disconnect(gainNode);
+						break;
+					case 11:
+						oscillatorAB.disconnect(gainNode);
+						break;
+					case 12:
+						oscillatorB.disconnect(gainNode);
+						break;
+					case 13:
+						oscillatorC_8va.disconnect(gainNode);
+						break;
+					case 14:
+						oscillatorCD_8va.disconnect(gainNode);
+						break;
+					case 15:
+						oscillatorD_8va.disconnect(gainNode);
+						break;
+					case 16:
+						oscillatorDE_8va.disconnect(gainNode);
+						break;
+					case 17:
+						oscillatorE_8va.disconnect(gainNode);
+						break;
+					case 18:
+						oscillatorF_8va.disconnect(gainNode);
+						break;
+					case 19:
+						oscillatorFG_8va.disconnect(gainNode);
+						break;
+					case 20:
+						oscillatorG_8va.disconnect(gainNode);
+						break;
+					case 21:
+						oscillatorGA_8va.disconnect(gainNode);
+						break;
+					case 22:
+						oscillatorA_8va.disconnect(gainNode);
+						break;
+					case 23:
+						oscillatorAB_8va.disconnect(gainNode);
+						break;
+					case 24:
+						oscillatorB_8va.disconnect(gainNode);
+						break;
+					case 25:
+						oscillatorC_15va.disconnect(gainNode);
+						break;
+					default:
+						;
+				}
+			});};
+
+
+  </script>
+</body>
+</html>

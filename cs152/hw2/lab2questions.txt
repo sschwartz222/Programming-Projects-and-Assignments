@@ -1,0 +1,39 @@
+Pre-lab 2 questions	
+Name: Sam Schwartz
+Cnet ID: sschwartz222
+Lab start time: 3:30
+
+Note: There may be more than one answer. Make sure you circle 
+all that apply 
+******* Test-driven Development ******* 
+
+1. Which statement(s) are true about TDD? 
+(delete all answers that are not true) 
+      a) All tests are written before any implementation 
+      b) A given test is written before its associated code is implemented 
+      c) A given test is run before its associated code is implemented 
+
+2. What are the perceived benefit(s) of TDD? 
+(delete all answers that are not true) 
+      a) Help programmers better understand the requirements (specifications) for the problem before implementing the solution. 
+      b) Make sure that new code doesn't break existing functionality, better isolating errors. 
+      d) Builds confidence in the validity of each new set of tests. 
+
+******* Duet Programming ******* 
+
+3. There are several ways to collaborate on a project, but only one of the lines below describes collaboration with Duet Programming. 
+Delete all of the lines below except the one that describes Duet Programming. 
+      b) Work on different computers on different parts of the same problem, discussing your work at different points. 
+
+4. When are good times to discuss your progress with your partner? Delete all the lines below except the ones that are true for Duet Programming. 
+      a) When you complete a phase of work. 
+      b) When you are unsure how to progress. 
+      d) When you have an idea of how your partner should solve their part of the problem. 
+      e) When you think of a good joke to tell. 
+
+5. Which words below describe roles in Duet Programming? (Delete the incorrect answers) 
+      a) Implementer  
+      d) Strategist 
+      
+6. How often should you switch roles in Duet Programming? (Delete the incorrect answers) 
+      c) When you complete (implementation, testing infrastructure, testing and debugging) one function in your assignment 

@@ -1,0 +1,30 @@
+./warmup4 0 16 THE QUICK BROWN FOX JUMPED. THE LAZY DOG, HE WAS JUMPED OVER.
+./warmup4 0 15 THE QUICK BROWN FOX JUMPED. THE LAZY DOG, HE WAS JUMPED OVER.
+echo "Expected: failure"
+./warmup4 0 16
+echo "Expected: error message"
+./warmup4 1 THE QUICK BROWN FOX JUMPED. THE LAZY DOG, HE WAS JUMPED OVER.
+echo "Expected: the quick brown fox jumped. the lazy dog, he was jumped over."
+./warmup4 2 100 50 0 128 128 test100x50gb.png
+echo "test100x50gb.png should be 100x50 and contain all teal pixels"
+./warmup4 2 200 500 128 0 128 test200x500rb.png
+echo "test200x500rb.png should be 200x500 and contain all purple pixels"
+./hw4 0 2017-04-07
+echo "Expected: 1, HUMBLE., Kendrick Lamar, 2017-04-07"
+./hw4 0 2017-04-07 2
+echo "Expected: Invalid number of arguments!"
+./hw4 0 2
+echo "Expected: error message"
+./hw4 1 "Bruno Mars"
+echo "Expected: 3, That's What I Like, Bruno Mars, 2017-03-03"
+./hw4 1 "Cardi B"
+echo "Testing"
+./hw4 1 "Bruno Mars" 2
+echo "Expected: Invalid number of arguments!"
+./hw4 1 2
+echo "Expected: error message"
+./hw4 2 1556 "Bruno Mars"
+./hw4 2 1555 "Bruno Mars"
+./hw4 2 1556
+echo "Expected: error message"
+./hw4 3 1460 Havana

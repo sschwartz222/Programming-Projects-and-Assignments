@@ -1,0 +1,91 @@
+#lang typed/racket
+
+;; CMSC15100 Winter 2018
+;; Project 2 -- gui.rkt
+;; <YOUR NAME HERE>
+
+;; include CS151-specific definitions
+(require "../include/cs151-core.rkt")
+(require "../include/cs151-image.rkt")
+(require "../include/cs151-universe.rkt")
+
+;; include testing framework
+(require typed/test-engine/racket-tests)
+
+;; include util.rkt
+(require "util.rkt")
+
+;; include board.rkt
+(require "board.rkt")
+
+;; include moves.rkt
+(require "moves.rkt")
+
+;; include ai.rkt
+(require "ai.rkt")
+
+;; include render.rkt
+(require "render.rkt")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; DATA DEFINITIONS
+
+;; The state of the world, which tracks both the state of the game and the
+;; state of the GUI.
+;;
+(define-struct World
+  ([game : Game]                ;; current game state
+   [layout : Layout]            ;; the layout used to render the game state
+   [mode : UI-Mode]             ;; current GUI mode
+   [message : String]           ;; the current message to display
+   [human : Player]             ;; which color is the human playing?
+   [computer : Strategy]))      ;; the computer player
+
+;; the various GUI modes (or states)
+;;
+(define-type UI-Mode
+  (U 'quit                      ;; mode when the user has quit the game
+     'waiting-for-human         ;; mode when it is the human player's turn
+     'waiting-for-computer      ;; mode when it is the computer's turn
+     Winner))                   ;; mode when the game is over
+
+;; GUI state when the game is over; either there is a winner or
+;; it is a draw
+;;
+(define-type Winner (U Player 'draw))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; GUI
+
+(: default-message : Player UI-Mode -> String)
+;; map a human player and mode to a default message
+;;
+(define (default-message human mode)
+  (match mode
+    ['quit ""]
+    ['waiting-for-human "Your turn"]
+    ['waiting-for-computer "I'm thinking ..."]
+    ['draw "It's a draw"]
+    [_ (if (symbol=? mode human)"You win!" "I win!")]))
+
+;; cell size for interactive game
+(define cell-size : Natural 50)
+
+;; padding value for interactive game
+(define pad-width : Natural 5)
+
+(: make-world : Natural Player Strategy -> World)
+;; make an initial world with a board of the specified size.  The specified
+;; player will be the human.
+;;
+(define (make-world board-sz human computer)
+  (local
+    {(define mode : UI-Mode (if (symbol=? human 'black)
+                             'waiting-for-human
+                             'waiting-for-computer))}
+    (World (make-game board-sz)
+           (make-layout pad-width board-sz cell-size)
+           mode
+           (default-message human mode)
+           human
+           computer)))

@@ -1,0 +1,33 @@
+
+Pre-lab 3 questions	
+Name: Sam Schwartz
+Cnet ID: sschwartz222
+Lab start time: 3:30
+
+Note: There may be more than one answer. Make sure you leave 
+all that apply 
+1. Label each line with the color it will produce given RGB colors from 0-255. 
+      a) 255, 0, 0 - red
+      b) 0, 255, 0 - green
+      c) 0, 0, 255 - blue
+      d) 0, 0, 0 - black
+      e) 255, 255, 255 - white
+
+2. png compresses the file without losing any information. This is called: 
+(delete the incorrect one) 
+      a) lossless  
+      
+3. What are the common uses of #define? 
+(Remove any answers that are not) 
+      a) making sure a .h file is not read twice during a single compilation pass. 
+      c) defining constants to use throughout the program 
+      d) turning on and off debugging statements 
+
+
+4. Which are true statements about statically-allocated arrays (e.g. int x[3][4])? 
+(Remove any answers that are not) 
+      b) Passing this array into a function will pass the address of the beginning element,
+	 not copy the entire array. Therefore, any changes made inside the function will be 
+	 present after the function ends. 
+      d) Arrays and pointers are very related. 
+     
