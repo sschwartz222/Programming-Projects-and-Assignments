@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e890b82d-a7d9-44d2-a89c-95c07f601f98" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Downloads/.idea/$PRODUCT_WORKSPACE_FILE$" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Downloads/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Downloads/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Downloads/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Downloads/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Downloads/Downloads.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Downloads/edu/virginia/engine/display/DisplayObject.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Downloads/edu/virginia/engine/display/Game$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Downloads/edu/virginia/engine/display/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Downloads/edu/virginia/engine/display/GameScenePanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Downloads/edu/virginia/engine/display/Sprite.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Downloads/edu/virginia/engine/util/GameClock.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Downloads/edu/virginia/lab1test/LabOneGame.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Downloads/resources/Mario.png" beforeDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1ToDhMz6w1OBoE7T4aFdOVX80Zn" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="edu.virginia.lab1test.LabFiveGame" />
+      <module name="CfL_Lab1" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.." />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e890b82d-a7d9-44d2-a89c-95c07f601f98" name="Default Changelist" comment="" />
+      <created>1574117672739</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1574117672739</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
