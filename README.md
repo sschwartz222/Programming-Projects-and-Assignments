@@ -1,7 +1,7 @@
 # Programming-Projects-and-Assignments
 A collection of various projects and homework assignments over a few years
 
-cs151 consists of Typed Racket code, cs152 and cs154 of C code, cs223 of Elm code, and cs209 of Java code.
+cs151 consists of Typed Racket code, cs152 and cs154 of C code, cs209 of Java code, and cs223 of Elm code.
 
 Some notable projects to check out:
      
